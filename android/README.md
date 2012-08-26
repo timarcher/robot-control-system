@@ -1,1 +1,3 @@
 The android directory is the parent workspace for all of the android related source code. It will contain several projects developed in Eclipse to run on the android platform. Some projects will be simple proofs of concept to test and demo individual features, and some will contain full fledged source code to run the robot. This will evolve over time as I figure out what I want this robot to do.
+
+Any project starting with the string "demo-" will hold a self contained project that can be run on its own and is used to demo/test a very specific feature to run on an android based system.
