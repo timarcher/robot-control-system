@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;accessory_filter.xml&apos; to &apos;xml&apos;&#x0D;&#x0A;- Original project: &apos;HelloIOIO&apos;&#x0D;&#x0A;- Destination element: &apos;xml&apos;&#x0D;&#x0A;- Original element: &apos;accessory_filter.xml&apos;" description="Copy file" element1="res/xml/accessory_filter.xml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1348366341545" target="/demo-IOIO-Motor-Interface/res/xml" units="0" version="1.0"/>
+</session>
