@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="android.view.View"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.media.MediaRecorder"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
@@ -17,4 +16,7 @@
 <fullyQualifiedTypeName name="ioio.lib.api.AnalogInput"/>
 <fullyQualifiedTypeName name="android.widget.ToggleButton"/>
 <fullyQualifiedTypeName name="android.widget.SeekBar"/>
+<fullyQualifiedTypeName name="ioio.lib.api.TwiMaster"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.R"/>
 </qualifiedTypeNameHistroy>

@@ -3,26 +3,26 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
 		<item value="275" key="DIALOG_Y_ORIGIN"/>
-		<item value="840" key="DIALOG_X_ORIGIN"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
+		<item value="840" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="stop" key="selection"/>
+		<item value="createIOIOLooper" key="selection"/>
 		<list key="findhistory">
-			<item value="stop"/>
-			<item value="Thread"/>
-			<item value="thread"/>
-			<item value="encoder"/>
-			<item value="btnLeftD"/>
-			<item value="btnForward"/>
-			<item value="button_"/>
-			<item value="leftMotorEncoder1Value"/>
+			<item value="createIOIOLooper"/>
+			<item value="ioio_"/>
+			<item value="PIN_I2C_SCL0"/>
+			<item value="PIN_I2C_SDA0"/>
+			<item value="leftMotorThermalFlag"/>
+			<item value="txtLeftMotorThermalFlag"/>
+			<item value="sbLeftSpeed"/>
+			<item value="txtLeftMotorBrake"/>
 		</list>
 		<list key="replacehistory">
 		</list>

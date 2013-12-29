@@ -3,6 +3,7 @@ package com.example.demo_ioio_motor_interface;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import ioio.lib.api.AnalogInput;
 import ioio.lib.api.DigitalInput;
 import ioio.lib.api.DigitalOutput;
 import ioio.lib.api.PwmOutput;
+import ioio.lib.api.TwiMaster;
 import ioio.lib.api.exception.ConnectionLostException;
 import ioio.lib.util.android.IOIOActivity;
 import ioio.lib.util.BaseIOIOLooper;
@@ -56,7 +58,7 @@ import ioio.lib.util.IOIOLooper;
  * To enable current sensing, jumper R10 and R11
  * To enable the thermal flags, jumper R2 and R3
  * To enable the motor driver board to power the OOPIC, jumper R13
- * 
+ * PWM Can be enabled on IOIO Pins 3-7, 10-14, 18-26, and 47-48
  * 
  * 
  * '''''''''''''''''''' LMD18200 Notes ''''''''''''''''''''''''' 
@@ -151,7 +153,9 @@ public class MainActivity extends IOIOActivity {
         txtIoioStatus = (TextView) findViewById(R.id.txtIoioStatus);
         btnMove = (ToggleButton) findViewById(R.id.btnMove);
         
-		/** Left motor hardware information */                
+		//
+        //Left motor hardware information
+        //
         btnLeftDirection = (ToggleButton) findViewById(R.id.btnLeftDirection);
         btnLeftDirection.setChecked(true);
         sbLeftSpeed = (SeekBar) findViewById(R.id.sbLeftSpeed);        
@@ -163,7 +167,9 @@ public class MainActivity extends IOIOActivity {
 	    txtLeftMotorEncoder1 = (TextView) findViewById(R.id.txtLeftMotorEncoder1);
 	    txtLeftMotorEncoder2 = (TextView) findViewById(R.id.txtLeftMotorEncoder2);
 
-		/** Right motor hardware information */
+		//
+	    //Right motor hardware information
+	    //
 	    btnRightDirection = (ToggleButton) findViewById(R.id.btnRightDirection);
         btnRightDirection.setChecked(true);
         sbRightSpeed = (SeekBar) findViewById(R.id.sbRightSpeed);        
@@ -240,7 +246,6 @@ public class MainActivity extends IOIOActivity {
 		private Thread rightMotorEncoder1MonitorThread;
 		private DigitalInput rightMotorEncoder2;		
 		private Thread rightMotorEncoder2MonitorThread;
-
 		
 		/**
 		 * Called every time a connection with IOIO has been established.
@@ -289,6 +294,7 @@ public class MainActivity extends IOIOActivity {
 		        		}
 		        	} catch (Exception e) {
 		        		//Need to figure out how to handle
+		        		Log.e("app", "Error reading left encoder #1 value", e);		        		
 		        	}
 		        	
 		        }
@@ -307,6 +313,7 @@ public class MainActivity extends IOIOActivity {
 		        		}
 		        	} catch (Exception e) {
 		        		//Need to figure out how to handle
+		        		Log.e("app", "Error reading left encoder #2 value", e);		        		
 		        	}
 		        	
 		        }
@@ -325,6 +332,7 @@ public class MainActivity extends IOIOActivity {
 		        		}
 		        	} catch (Exception e) {
 		        		//Need to figure out how to handle
+		        		Log.e("app", "Error reading right encoder #1 value", e);		        		
 		        	}
 		        	
 		        }
@@ -343,11 +351,13 @@ public class MainActivity extends IOIOActivity {
 		        		}
 		        	} catch (Exception e) {
 		        		//Need to figure out how to handle
+		        		Log.e("app", "Error reading right encoder #2 value", e);
 		        	}
 		        	
 		        }
 		    });
 			rightMotorEncoder2MonitorThread.start();			
+			
 		}
 
 		/**
@@ -396,6 +406,8 @@ public class MainActivity extends IOIOActivity {
 				//rightMotorPwm.setDutyCycle(10);
 				//rightMotorPwm.setPulseWidth(sbRightSpeed.getProgress());
 				
+				//The progress bar allows for the user to set speed between 0 and 1000
+				//That'll translate into a 0 to 1 for the duty cycle on the IOIO 
 				float leftDutyCycle = sbLeftSpeed.getProgress() / 1000.00f;
 				float rightDutyCycle = sbRightSpeed.getProgress() / 1000.00f;
 				leftMotorPwm.setDutyCycle(leftDutyCycle);
@@ -405,7 +417,6 @@ public class MainActivity extends IOIOActivity {
 			else {
 				stopMotors();				
 			}
-
 			
 			//
 			//Since the IOIO runs in its own thread, need to update the view from the UI thread
@@ -414,7 +425,28 @@ public class MainActivity extends IOIOActivity {
 				public void run() {
 					//Just some dummy status code
 					txtIoioStatus.setText("Looping: " + String.valueOf(loopCount));
-					txtLeftMotorDirection.setText("Forward");
+
+					//
+					//Display the motor directions text
+					//
+					if (btnLeftDirection.isChecked()) {
+						txtLeftMotorDirection.setText("Forward");
+					}
+					else {
+						txtLeftMotorDirection.setText("Reverse");
+					}
+
+					if (btnRightDirection.isChecked()) {
+						txtRightMotorDirection.setText("Forward");						
+					}
+					else {
+						txtRightMotorDirection.setText("Reverse");
+					}
+					
+					
+					//
+					//Display the left motor speed, current sense and thermal flag
+					//
 					txtLeftMotorSpeed.setText(String.valueOf(sbLeftSpeed.getProgress()));
 					try {
 						float leftMotorCurrentValue = leftMotorCurrent.read();
@@ -424,10 +456,14 @@ public class MainActivity extends IOIOActivity {
 						}
 					    txtLeftMotorThermalFlag.setText(String.valueOf(leftMotorThermalFlag.read()));
 					    txtLeftMotorCurrentSensing.setText(String.valueOf(leftMotorCurrentValue));
+					    
 					} catch (Exception e) {
 						txtLeftMotorThermalFlag.setText("Read Error");
 					}		
 					
+					//
+					//Display the left motor speed, current sense and thermal flag
+					//
 					txtRightMotorSpeed.setText(String.valueOf(sbRightSpeed.getProgress()));
 					try {
 						float rightMotorCurrentValue = rightMotorCurrent.read();

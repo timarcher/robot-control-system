@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-task-tag-projects-already-scanned=RemoteSystemsTempFiles,demo-HelloWorld,demo-StreamVideo,HelloIOIO,IOIOLib,IOIOLibAccessory,IOIOLibBT,demo-IOIO-Motor-Interface
+task-tag-projects-already-scanned=RemoteSystemsTempFiles,demo-HelloWorld,demo-StreamVideo,HelloIOIO,IOIOLib,IOIOLibAccessory,IOIOLibBT,demo-IOIO-Motor-Interface,demo-IOIO-SRF08-Interface
