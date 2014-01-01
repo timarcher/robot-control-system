@@ -12,6 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * This is the main activity of the Streaming video demo application.
+ * 
+ * 
+ */
 public class MainActivity extends Activity {
 	/** A tag for logging output. */
 	private static final String TAG = "MainActivity";
