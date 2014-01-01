@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"     
+    android:layout_width="fill_parent"    
+    android:layout_height="fill_parent">
+	<ScrollView android:id="@+id/ScrollView01" android:layout_width="fill_parent" android:layout_height="fill_parent">
+		<LinearLayout
+		  xmlns:android="http://schemas.android.com/apk/res/android"
+		  android:layout_width="fill_parent"
+		  android:layout_height="wrap_content"
+		  android:orientation="vertical">	
+		  	<!--
+		  	** 
+		  	**IOIO Information
+		  	**
+		  	 -->
+            <TextView android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:text="IOIO Status" 
+                	android:textStyle="bold" android:layout_margin="2dip"/>
+            		  	  
+			<TableLayout 
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content" 
+			    android:paddingLeft="25dp"> 
+			    <TableRow>
+			        <TextView 
+			            android:text="IOIO Status: "
+			            android:width="120dp"			            
+			            android:gravity="left"
+			            />
+		  			<TextView  
+						android:id="@+id/txtIoioStatus" 
+					    android:layout_width="fill_parent" 
+					    android:layout_height="wrap_content"
+					    android:background="#cccccc" 
+					    />
+			        			        
+			    </TableRow>			    						    			    				    	    			    	    		    	   
+		   	</TableLayout>   
+			    		  
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>		

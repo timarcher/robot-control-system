@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- TEA Customized to add more menu items -->
+    <item
+        android:id="@+id/action_sensor_values"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/action_sensor_values"/>    
+    
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="200"
+        android:showAsAction="always"
+        android:title="@string/action_settings"/>
+
+</menu>

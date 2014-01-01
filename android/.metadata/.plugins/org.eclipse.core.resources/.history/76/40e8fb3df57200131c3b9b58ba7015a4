@@ -1,0 +1,43 @@
+package com.timarcher.robotface;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
+import android.view.View;
+
+/**
+ * The view which draws the face
+ * 
+ * @author tarcher
+ *
+ */
+public class FaceView extends View {
+
+	public FaceView(Context context) {
+		super(context);
+	}
+	
+	 @Override
+	 protected void onDraw(Canvas canvas) {
+	     super.onDraw(canvas);
+	     
+	     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+	     paint.setColor(0xFFFF0000);
+	     
+	     //canvas.drawCircle(xPos, yPos, radius, paint);	     
+	     canvas.drawCircle(20, 20, 30, paint);
+	     
+	     ShapeDrawable rect = new ShapeDrawable(new RoundRectShape(new float[] {10, 10, 10, 10, 10, 10, 10, 10},null, null));
+	     rect.setIntrinsicHeight(50);
+	     rect.setIntrinsicWidth(100);
+	     //rect.getPaint().setColor(Color.GREEN);
+	     //Specify a bounding rectangle to draw into
+	     //left, top, right, bottom
+	     rect.setBounds(0, 0, 200, 200);
+	     rect.draw(canvas);
+	 }	
+
+}
