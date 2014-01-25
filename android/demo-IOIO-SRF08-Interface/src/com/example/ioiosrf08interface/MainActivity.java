@@ -101,10 +101,12 @@ public class MainActivity extends IOIOActivity {
     	list.add("0xEA");
     	list.add("0xEC");
     	list.add("0xEE");
-    	list.add("0xF0");
-    	list.add("0xF2");
-    	list.add("0xF4");
-    	list.add("0xF6");
+    	//These four addresses below cause the IOIO I2C connection to be lost when writing to them.
+    	//Dont change the sonar address to any of these! Not sure if its an IOIO bug or something else.
+    	//list.add("0xF0");
+    	//list.add("0xF2");
+    	//list.add("0xF4");
+    	//list.add("0xF6");
     	list.add("0xF8");
     	list.add("0xFA");
     	list.add("0xFC");
@@ -249,9 +251,10 @@ public class MainActivity extends IOIOActivity {
 			//0x52 = ranging result in micro-seconds
 			byte rangingCommand = 0x51;
 			byte[] sonarRequest = new byte[] { srf08CommandRegisterAddress, rangingCommand };
-			
+						
 			Log.d("app",  "About to initiate sonar ranging.");
-			TwiMaster.Result result = twi.writeReadAsync(sonarAddress, false, sonarRequest, sonarRequest.length, null, 0);
+			//TwiMaster.Result result = twi.writeReadAsync(sonarAddress, false, sonarRequest, sonarRequest.length, null, 0);
+			twi.writeRead(sonarAddress, false, sonarRequest, sonarRequest.length, null, 0);
 			//...optionally do some stuff while the transaction is taking place...
 			//blocks until response is available
 			//result.waitReady();
@@ -261,6 +264,12 @@ public class MainActivity extends IOIOActivity {
 			Log.e("app", "Error in twi.writeRead", e);
 		}
 
+		try {
+			Thread.sleep(30);
+		} catch (InterruptedException e) {
+		}					
+		
+		
 		//
 		//Read the results from the sonar
 		//
@@ -279,10 +288,12 @@ public class MainActivity extends IOIOActivity {
 			sonarResponse = new byte[1];
 			int sonarVersion = 0;
 			int sonarWaitCount = 0;
+			boolean isSonarResultReady = false;
 			do {
 				sonarWaitCount ++;
-				Log.d("app",  "Sonar waiting for results.");
+				Log.d("app",  "Sonar waiting for results. Wait Count: "+sonarWaitCount);
 				twi.writeRead(sonarAddress, false, sonarRequest, sonarRequest.length, sonarResponse, sonarResponse.length);
+				
 				Byte sonarVersionByte = new Byte(sonarResponse[0]);
 				sonarVersion = sonarVersionByte.intValue();
 				Log.d("app",  "Sonar response " + sonarVersion);
@@ -290,8 +301,18 @@ public class MainActivity extends IOIOActivity {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
 				}					
-			} while ((sonarVersion == 0 || sonarVersion == 255) && sonarWaitCount < 14);				
+				
+				if (sonarVersion > 0 && sonarVersion < 255) {
+					isSonarResultReady = true;
+				}
+				
+			} while ((sonarVersion <= 0 || sonarVersion == 255) && sonarWaitCount < 14);				
 
+			if (!isSonarResultReady) {
+				sonarValue = 0;
+				lightSensorValue = 0;
+				return;
+			}
 			
 			//
 			//Read the light sensor value from the srf08
@@ -356,6 +377,9 @@ public class MainActivity extends IOIOActivity {
 	 * The SRF08 will flash its address out on the LED. One long flash followed by a number of shorter flashes 
 	 * indicating its address. The flashing is terminated immediately on sending a command the SRF08.
 	 * 
+	 * In a pinch, you can change the address of the SRF08 using this method if you dont know its current address or if its not responding:
+	 * This changes the address of the only sonar connected to the I2C bus to 0xE0
+	 * 		changeSrf08Address((byte) 0x00, 0xE0);
 	 */
 	public void changeSrf08Address (byte oldSonarAddress, int newSonarAddress) {
 		Log.d("app",  "About to change SRF08 address from " + oldSonarAddress + " to " + newSonarAddress);
@@ -471,7 +495,7 @@ public class MainActivity extends IOIOActivity {
 		long loopCount = 0;
 		
 		/** The on-board LED. */
-		private DigitalOutput led_;				
+		//private DigitalOutput led_;				
 		
 		/**
 		 * Called every time a connection with IOIO has been established.
@@ -492,12 +516,15 @@ public class MainActivity extends IOIOActivity {
 			});			
 
 			loopCount = 0;
-			led_ = ioio_.openDigitalOutput(0, true);
+			//led_ = ioio_.openDigitalOutput(0, true);
 
 			//This opens a TWI module number twiNum in master mode, using its dedicated SDA and SCL pins (specify 0, 1 or 2 for param 1)
 			//The TWI module will run at 100KHz (400KHz and 1MHz also supported) 
 			//and will use I²C voltage levels (pass true as third argument for SMBus levels).
+			//SDA1
 			twi = ioio_.openTwiMaster(0, TwiMaster.Rate.RATE_100KHz, false);
+			//SDA2
+			//twi = ioio_.openTwiMaster(1, TwiMaster.Rate.RATE_100KHz, false);
 		}
 
 
@@ -526,7 +553,7 @@ public class MainActivity extends IOIOActivity {
 		@Override
 		public void loop() throws ConnectionLostException {
 			loopCount ++;
-			led_.write(true);
+			//led_.write(false);	//Gotta right a 0 to the onboad led to get it to turn on.
 
 			//
 			//Ping sonar if the toggle button is enabled

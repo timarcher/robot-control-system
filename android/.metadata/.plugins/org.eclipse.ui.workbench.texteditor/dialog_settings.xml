@@ -2,27 +2,27 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
-		<item value="275" key="DIALOG_Y_ORIGIN"/>
+		<item value="164" key="DIALOG_Y_ORIGIN"/>
+		<item value="1159" key="DIALOG_X_ORIGIN"/>
 		<item value="380" key="DIALOG_HEIGHT"/>
-		<item value="840" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="createIOIOLooper" key="selection"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
-			<item value="createIOIOLooper"/>
-			<item value="ioio_"/>
-			<item value="PIN_I2C_SCL0"/>
-			<item value="PIN_I2C_SDA0"/>
-			<item value="leftMotorThermalFlag"/>
-			<item value="txtLeftMotorThermalFlag"/>
-			<item value="sbLeftSpeed"/>
-			<item value="txtLeftMotorBrake"/>
+			<item value="blue"/>
+			<item value="0xf6"/>
+			<item value="led_"/>
+			<item value="response"/>
+			<item value="waiting for res"/>
+			<item value="led"/>
+			<item value="_led"/>
+			<item value="loopcount"/>
 		</list>
 		<list key="replacehistory">
 		</list>
