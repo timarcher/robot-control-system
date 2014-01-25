@@ -9,10 +9,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 /**
@@ -37,6 +42,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements TextToSpeech.OnInitListener {
     private static final String TAG = "SpeechActivity";
     private TextToSpeech tts;
+    private FaceView faceView;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +72,11 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
 		//
 		//Set the background color to black and add the face
 		//
-		FrameLayout main = (FrameLayout) findViewById(R.id.main_view);
-		main.setBackgroundColor(Color.BLACK);
-	    main.addView(new FaceView(this));
+		FrameLayout mainLayout = (FrameLayout) findViewById(R.id.main_view);
+		mainLayout.setBackgroundColor(Color.BLACK);
+		
+		faceView = new FaceView(this);
+		mainLayout.addView(faceView);
 	    	    
 	    //
 	    //Initialize text to speech
@@ -80,6 +88,48 @@ public class MainActivity extends Activity implements TextToSpeech.OnInitListene
         
 		Log.i(TAG, "onCreateCalled.");
 		tts = new TextToSpeech(this, this);
+		
+		
+		//
+		//Add a button to blink the eyes
+		//
+		Button blinkButton = new Button(this);
+		blinkButton.setText("Blink");
+		blinkButton.setBackgroundColor(Color.CYAN);
+		blinkButton.setOnClickListener(new OnClickListener()
+		{
+		     @Override
+		     public void onClick(View v) {
+		         faceView.blink();
+		     }
+		});
+		
+		//
+		//Add a button to talk
+		//
+		Button talkButton = new Button(this);
+		talkButton.setText("Talk");
+		talkButton.setBackgroundColor(Color.CYAN);
+		
+		//mainLayout.add(blinkButton);
+		talkButton.setOnClickListener(new OnClickListener()
+		{
+		     @Override
+		     public void onClick(View v) {
+		    	 //sayIt("Hey Adddie, don't press my button!");
+		    	 faceView.talk();
+		     }
+		});		
+
+		//
+		//Add buttons to the layout
+		LinearLayout linearLayout = new LinearLayout (this);
+		linearLayout.setGravity(Gravity.BOTTOM);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(130, 75);
+        layoutParams.setMargins(20, 0, 20, 0);		
+		linearLayout.addView(blinkButton, layoutParams);
+		linearLayout.addView(talkButton, layoutParams);
+		mainLayout.addView(linearLayout);
 		
 	}
 

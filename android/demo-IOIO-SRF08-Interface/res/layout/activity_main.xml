@@ -68,6 +68,69 @@
 			    </TableRow>				    			    			    						    			    				    	    			    	    		    	   
 		   	</TableLayout>   
 
+
+	        <!-- Just a horizontal line -->				
+ 			<View
+             android:layout_width="fill_parent"
+             android:layout_height="2dp"
+             android:background="#c0c0c0"/>
+
+	        <TextView 
+	            android:text="Select an Address for the SRF08: "
+	            android:width="120dp"			            
+	            android:gravity="left"
+			    android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content"
+	            />
+	         						
+		    <Spinner
+		        android:id="@+id/srf08Address"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content" />
+
+	        <!-- Just a horizontal line -->				
+ 			<View
+             android:layout_width="fill_parent"
+             android:layout_height="2dp"
+             android:background="#c0c0c0"
+             android:layout_marginTop="15dp"
+             android:layout_marginBottom="15dp"/>
+ 					    		    		 
+		    <ToggleButton
+		        android:id="@+id/btnPingingEnabled"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:textOn="Sonar Pinging Enabled"
+		        android:textOff="Sonar Pinging Disabled"
+		        android:checked="false" />		
+		        
+	        <!-- Just a horizontal line -->				
+ 			<View
+             android:layout_width="fill_parent"
+             android:layout_height="2dp"
+             android:background="#c0c0c0"
+             android:layout_marginTop="15dp"
+             android:layout_marginBottom="15dp"/>
+
+	        <TextView 
+	            android:text="Change your SRF08 at address selected above to the new address selected below by clicking the button below. Important, for this to work, the sonar to be reprogrammed must be the ONLY ONE plugged into your I2C bus: "
+	            android:width="120dp"			            
+	            android:gravity="left"
+			    android:layout_width="fill_parent" 
+			    android:layout_height="wrap_content"	            
+	            />
+
+		    <Spinner
+		        android:id="@+id/newSrf08Address"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content" />
+	        	        						
+		    <Button
+		        android:id="@+id/btnChangeSrf08Address"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Change SRF08 Address" />			
+ 								    		        
 		</LinearLayout>
 	</ScrollView>
 </LinearLayout>		
